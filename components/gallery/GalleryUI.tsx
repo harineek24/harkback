@@ -2,26 +2,40 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Folder, Project } from "./projects";
+import { GuestData } from "./GuestNPC";
 
 interface GalleryUIProps {
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
   nearbyFolder: Folder | null;
+  nearbyGuest: GuestData | null;
   detailFolder: Folder | null;
   setDetailFolder: (folder: Folder | null) => void;
   detailProject: Project | null;
   setDetailProject: (project: Project | null) => void;
+  talkingGuest: GuestData | null;
+  setTalkingGuest: (guest: GuestData | null) => void;
 }
 
 export default function GalleryUI({
   menuOpen,
   setMenuOpen,
   nearbyFolder,
+  nearbyGuest,
   detailFolder,
   setDetailFolder,
   detailProject,
   setDetailProject,
+  talkingGuest,
+  setTalkingGuest,
 }: GalleryUIProps) {
+  const hasNearbyAnything = nearbyFolder || nearbyGuest;
+  const nearbyPromptText = nearbyGuest
+    ? `Talk to ${nearbyGuest.name}`
+    : nearbyFolder
+      ? `Open "${nearbyFolder.name}"`
+      : null;
+
   return (
     <div className="gallery-ui">
       {/* Top-right menu button */}
@@ -32,7 +46,7 @@ export default function GalleryUI({
         MENU
       </button>
 
-      {/* Bottom HUD */}
+      {/* Bottom HUD - hidden on mobile (replaced by joystick) */}
       <div className="hud-bar">
         <div className="hud-section">
           <span className="hud-label">Move</span>
@@ -51,7 +65,7 @@ export default function GalleryUI({
         </div>
         <div className="hud-section">
           <span className="hud-label">
-            {nearbyFolder ? `Open "${nearbyFolder.name}"` : "Details"}
+            {nearbyPromptText || "Interact"}
           </span>
           <div className="hud-keys">
             <kbd>ENTER</kbd>
@@ -61,14 +75,56 @@ export default function GalleryUI({
 
       {/* Nearby prompt */}
       <AnimatePresence>
-        {nearbyFolder && !detailFolder && !menuOpen && (
+        {hasNearbyAnything && !detailFolder && !menuOpen && !talkingGuest && (
           <motion.div
             className="nearby-prompt"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
           >
-            Press <kbd>ENTER</kbd> to open <strong>{nearbyFolder.name}</strong>
+            Press <kbd>ENTER</kbd> to{" "}
+            {nearbyGuest ? (
+              <>talk to <strong>{nearbyGuest.name}</strong></>
+            ) : nearbyFolder ? (
+              <>open <strong>{nearbyFolder.name}</strong></>
+            ) : null}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Guest speech bubble */}
+      <AnimatePresence>
+        {talkingGuest && (
+          <motion.div
+            className="speech-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setTalkingGuest(null)}
+          >
+            <motion.div
+              className="speech-bubble"
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="speech-header">
+                <div
+                  className="speech-avatar"
+                  style={{ backgroundColor: talkingGuest.color }}
+                />
+                <span className="speech-name">{talkingGuest.name}</span>
+              </div>
+              <p className="speech-message">{talkingGuest.message}</p>
+              <button
+                className="speech-close"
+                onClick={() => setTalkingGuest(null)}
+              >
+                Dismiss
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
