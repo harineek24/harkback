@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Text, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -13,8 +13,12 @@ interface ArtworkFrameProps {
   isNearby: boolean;
 }
 
-function MainProjectsPainting({ width, height }: { width: number; height: number }) {
-  const texture = useTexture("/paintings/main-projects.png");
+// Supports both .png and .jpg - drop either as main-projects.png or main-projects.jpg
+function PaintingImage({ width, height }: { width: number; height: number }) {
+  // Try loading - useTexture accepts a single path; user places their file as
+  // public/paintings/main-projects.png OR .jpg (rename to .png for simplicity,
+  // or use jpg directly by changing the path below)
+  const texture = useTexture("/paintings/main-projects.jpg");
   return (
     <mesh position={[0, 0, -0.005]}>
       <planeGeometry args={[width, height]} />
@@ -23,12 +27,16 @@ function MainProjectsPainting({ width, height }: { width: number; height: number
   );
 }
 
-function FallbackPainting({ width, height, color }: { width: number; height: number; color: THREE.Color }) {
+function MainProjectsPainting({ width, height, fallbackColor }: { width: number; height: number; fallbackColor: THREE.Color }) {
   return (
-    <mesh position={[0, 0, -0.005]}>
-      <planeGeometry args={[width, height]} />
-      <meshStandardMaterial color={color} side={THREE.FrontSide} />
-    </mesh>
+    <Suspense fallback={
+      <mesh position={[0, 0, -0.005]}>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial color={fallbackColor} side={THREE.FrontSide} />
+      </mesh>
+    }>
+      <PaintingImage width={width} height={height} />
+    </Suspense>
   );
 }
 
@@ -114,11 +122,14 @@ export default function ArtworkFrame({
 
       {/* Canvas painting surface */}
       {isMainProjects ? (
-        <MainProjectsPainting width={canvasWidth} height={canvasHeight} />
+        <MainProjectsPainting width={canvasWidth} height={canvasHeight} fallbackColor={darkerColor} />
       ) : (
         <>
           {/* Other folders: colored background with folder icon */}
-          <FallbackPainting width={canvasWidth} height={canvasHeight} color={darkerColor} />
+          <mesh position={[0, 0, -0.01]}>
+            <planeGeometry args={[canvasWidth, canvasHeight]} />
+            <meshStandardMaterial color={darkerColor} side={THREE.FrontSide} />
+          </mesh>
 
           {/* Decorative diagonal lines */}
           {[-0.5, -0.25, 0, 0.25, 0.5].map((offset, i) => (
