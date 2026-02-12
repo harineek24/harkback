@@ -25,9 +25,10 @@ export const folders: Folder[] = [
         id: "medease",
         title: "MedEase",
         description:
-          "A healthcare platform designed to simplify medical appointment booking, patient management, and health record access for both patients and providers.",
-        techStack: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+          "An AI-powered EHR summarizer that transforms complex medical records into clear, patient-friendly summaries using Google Gemini. Includes a drug interaction checker.",
+        techStack: ["React", "Vite", "FastAPI", "Google Gemini", "TypeScript"],
         links: [
+          { label: "Live Demo", url: "https://med-ease-harineek24.vercel.app" },
           { label: "GitHub", url: "https://github.com/harineek24/medEase" },
         ],
         color: "#4a90d9",
