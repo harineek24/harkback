@@ -5,13 +5,17 @@ import * as THREE from "three";
 import ArtworkFrame from "./ArtworkFrame";
 import Stanchion from "./Stanchion";
 import Character from "./Character";
+import GuestNPC, { GuestData } from "./GuestNPC";
 import { getArtworkPositions } from "./projects";
 import { KeyState } from "./useKeyboardControls";
 
 interface GallerySceneProps {
   keys: React.RefObject<KeyState>;
   nearbyFolderId: string | null;
+  nearbyGuestId: string | null;
+  guests: GuestData[];
   onNearbyChange: (folderId: string | null) => void;
+  onNearbyGuestChange: (guestId: string | null) => void;
   onEnterPress: () => void;
   onEscapePress: () => void;
   menuOpen: boolean;
@@ -21,7 +25,10 @@ interface GallerySceneProps {
 export default function GalleryScene({
   keys,
   nearbyFolderId,
+  nearbyGuestId,
+  guests,
   onNearbyChange,
+  onNearbyGuestChange,
   onEnterPress,
   onEscapePress,
   menuOpen,
@@ -225,11 +232,22 @@ export default function GalleryScene({
         end={[2.8, 0, 12]}
       />
 
+      {/* NPC Guests */}
+      {guests.map((guest) => (
+        <GuestNPC
+          key={guest.id}
+          guest={guest}
+          isNearby={nearbyGuestId === guest.id}
+        />
+      ))}
+
       {/* Character */}
       <Character
         keys={keys}
         artworkPositions={artworkPositions}
+        guests={guests}
         onNearbyChange={onNearbyChange}
+        onNearbyGuestChange={onNearbyGuestChange}
         onEnterPress={onEnterPress}
         onEscapePress={onEscapePress}
         menuOpen={menuOpen}
