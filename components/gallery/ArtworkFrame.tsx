@@ -1,17 +1,35 @@
 "use client";
 
 import { useRef } from "react";
-import { Text } from "@react-three/drei";
+import { Text, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Folder } from "./projects";
-import { useHandPaintingTexture } from "./HandPainting";
 
 interface ArtworkFrameProps {
   position: [number, number, number];
   rotation: [number, number, number];
   folder: Folder;
   isNearby: boolean;
+}
+
+function MainProjectsPainting({ width, height }: { width: number; height: number }) {
+  const texture = useTexture("/paintings/main-projects.png");
+  return (
+    <mesh position={[0, 0, -0.005]}>
+      <planeGeometry args={[width, height]} />
+      <meshBasicMaterial map={texture} side={THREE.FrontSide} />
+    </mesh>
+  );
+}
+
+function FallbackPainting({ width, height, color }: { width: number; height: number; color: THREE.Color }) {
+  return (
+    <mesh position={[0, 0, -0.005]}>
+      <planeGeometry args={[width, height]} />
+      <meshStandardMaterial color={color} side={THREE.FrontSide} />
+    </mesh>
+  );
 }
 
 export default function ArtworkFrame({
@@ -30,8 +48,6 @@ export default function ArtworkFrame({
   const darkerColor = baseColor.clone().multiplyScalar(0.35);
   const lighterColor = baseColor.clone().lerp(new THREE.Color("#ffffff"), 0.3);
   const midColor = baseColor.clone().multiplyScalar(0.6);
-
-  const handTexture = useHandPaintingTexture();
 
   const isMainProjects = folder.id === "folder-1";
 
@@ -98,18 +114,11 @@ export default function ArtworkFrame({
 
       {/* Canvas painting surface */}
       {isMainProjects ? (
-        /* Main Projects: wireframe hand painting */
-        <mesh position={[0, 0, -0.005]}>
-          <planeGeometry args={[canvasWidth, canvasHeight]} />
-          <meshBasicMaterial map={handTexture} side={THREE.FrontSide} />
-        </mesh>
+        <MainProjectsPainting width={canvasWidth} height={canvasHeight} />
       ) : (
         <>
           {/* Other folders: colored background with folder icon */}
-          <mesh position={[0, 0, -0.01]}>
-            <planeGeometry args={[canvasWidth, canvasHeight]} />
-            <meshStandardMaterial color={darkerColor} side={THREE.FrontSide} />
-          </mesh>
+          <FallbackPainting width={canvasWidth} height={canvasHeight} color={darkerColor} />
 
           {/* Decorative diagonal lines */}
           {[-0.5, -0.25, 0, 0.25, 0.5].map((offset, i) => (

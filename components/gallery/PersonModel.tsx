@@ -75,8 +75,8 @@ function fillLimb(
 
 function buildAsciiPerson(): AsciiChar[] {
   const chars: AsciiChar[] = [];
-  const sp = 0.018; // very tight spacing
-  const sz = 0.022; // small font size so chars overlap/blend
+  const sp = 0.028; // looser spacing - chars visible but still form a shape
+  const sz = 0.03; // slightly bigger so individual chars are readable
 
   // HEAD - dense ellipse
   chars.push(...fillEllipse(0, 1.47, 0.10, 0.12, sp, sz));
