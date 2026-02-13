@@ -738,6 +738,46 @@ body {
   font-size: 14px;
 }
 
+/* Category Tabs */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-tab:hover {
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #e8789a, #d4a04a);
+  border-color: transparent;
+  color: white;
+}
+
+.category-tab-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
 /* Sweets Grid */
 .sweets-grid {
   display: grid;
@@ -859,7 +899,7 @@ body {
 
 /* Gift Box */
 .gift-box-wrapper {
-  max-width: 360px;
+  max-width: 400px;
   margin: 0 auto 40px;
   position: relative;
 }

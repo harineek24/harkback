@@ -1,3 +1,5 @@
+export type Category = "sweets" | "flowers" | "hearts";
+
 export interface Sweet {
   id: string;
   name: string;
@@ -6,9 +8,17 @@ export interface Sweet {
   meaning: string;
   color: string;
   bgColor: string;
+  category: Category;
 }
 
+export const categories: { id: Category; label: string; icon: string }[] = [
+  { id: "sweets", label: "Sweets", icon: "\u{1F9C1}" },
+  { id: "flowers", label: "Flowers", icon: "\u{1F339}" },
+  { id: "hearts", label: "Hearts", icon: "\u{1F496}" },
+];
+
 export const sweets: Sweet[] = [
+  // ── Sweets ──────────────────────────────────
   {
     id: "vanilla-cupcake",
     name: "Vanilla Cupcake",
@@ -17,6 +27,7 @@ export const sweets: Sweet[] = [
     meaning: "Simplicity & Joy",
     color: "#f5e6c8",
     bgColor: "#fdf6ec",
+    category: "sweets",
   },
   {
     id: "chocolate-cupcake",
@@ -26,6 +37,7 @@ export const sweets: Sweet[] = [
     meaning: "Comfort & Warmth",
     color: "#6b3a2a",
     bgColor: "#f0e0d6",
+    category: "sweets",
   },
   {
     id: "red-velvet",
@@ -35,6 +47,7 @@ export const sweets: Sweet[] = [
     meaning: "Love & Passion",
     color: "#c0392b",
     bgColor: "#fce4e4",
+    category: "sweets",
   },
   {
     id: "strawberry-macaron",
@@ -44,6 +57,7 @@ export const sweets: Sweet[] = [
     meaning: "Sweetness & Grace",
     color: "#e8789a",
     bgColor: "#fdeef3",
+    category: "sweets",
   },
   {
     id: "lavender-macaron",
@@ -53,6 +67,7 @@ export const sweets: Sweet[] = [
     meaning: "Calm & Serenity",
     color: "#9b7fbf",
     bgColor: "#f0e8f7",
+    category: "sweets",
   },
   {
     id: "pistachio-macaron",
@@ -62,6 +77,7 @@ export const sweets: Sweet[] = [
     meaning: "Luck & Prosperity",
     color: "#7dab6e",
     bgColor: "#edf5ea",
+    category: "sweets",
   },
   {
     id: "chocolate-truffle",
@@ -71,6 +87,7 @@ export const sweets: Sweet[] = [
     meaning: "Luxury & Indulgence",
     color: "#4a2c2a",
     bgColor: "#efe0d8",
+    category: "sweets",
   },
   {
     id: "caramel-bonbon",
@@ -80,6 +97,7 @@ export const sweets: Sweet[] = [
     meaning: "Warmth & Friendship",
     color: "#d4a04a",
     bgColor: "#faf0dc",
+    category: "sweets",
   },
   {
     id: "sugar-cookie",
@@ -89,6 +107,7 @@ export const sweets: Sweet[] = [
     meaning: "Nostalgia & Childhood",
     color: "#e8c170",
     bgColor: "#fdf5e6",
+    category: "sweets",
   },
   {
     id: "cake-pop",
@@ -98,6 +117,7 @@ export const sweets: Sweet[] = [
     meaning: "Celebration & Fun",
     color: "#e75480",
     bgColor: "#fde8ef",
+    category: "sweets",
   },
   {
     id: "glazed-donut",
@@ -107,6 +127,7 @@ export const sweets: Sweet[] = [
     meaning: "Happiness & Delight",
     color: "#e89b3f",
     bgColor: "#fef3e2",
+    category: "sweets",
   },
   {
     id: "cinnamon-roll",
@@ -116,8 +137,253 @@ export const sweets: Sweet[] = [
     meaning: "Coziness & Home",
     color: "#b87333",
     bgColor: "#f5eade",
+    category: "sweets",
+  },
+
+  // ── Flowers ─────────────────────────────────
+  {
+    id: "rose",
+    name: "Rose",
+    emoji: "\u{1F339}",
+    flavor: "The classic bloom of June, velvety and fragrant",
+    meaning: "Love & Romance",
+    color: "#e63946",
+    bgColor: "#fde8ea",
+    category: "flowers",
+  },
+  {
+    id: "tulip",
+    name: "Tulip",
+    emoji: "\u{1F337}",
+    flavor: "April's cheerful cup-shaped bloom",
+    meaning: "Perfect Love",
+    color: "#e85d75",
+    bgColor: "#fdedf0",
+    category: "flowers",
+  },
+  {
+    id: "sunflower",
+    name: "Sunflower",
+    emoji: "\u{1F33B}",
+    flavor: "August's golden giant, always facing the light",
+    meaning: "Adoration & Loyalty",
+    color: "#f4a623",
+    bgColor: "#fef6e4",
+    category: "flowers",
+  },
+  {
+    id: "cherry-blossom",
+    name: "Cherry Blossom",
+    emoji: "\u{1F338}",
+    flavor: "Delicate spring petals, fleeting and beautiful",
+    meaning: "New Beginnings",
+    color: "#f2a0b5",
+    bgColor: "#fdf0f4",
+    category: "flowers",
+  },
+  {
+    id: "hibiscus",
+    name: "Hibiscus",
+    emoji: "\u{1F33A}",
+    flavor: "A bold tropical flower in vivid crimson",
+    meaning: "Beauty & Courage",
+    color: "#d63384",
+    bgColor: "#fce4ef",
+    category: "flowers",
+  },
+  {
+    id: "daisy",
+    name: "Daisy",
+    emoji: "\u{1F33C}",
+    flavor: "April's bright, cheerful field flower",
+    meaning: "Innocence & Purity",
+    color: "#f7c948",
+    bgColor: "#fef9e7",
+    category: "flowers",
+  },
+  {
+    id: "bouquet",
+    name: "Bouquet",
+    emoji: "\u{1F490}",
+    flavor: "A lush hand-tied arrangement of mixed blooms",
+    meaning: "Gratitude & Admiration",
+    color: "#8e44ad",
+    bgColor: "#f4e8fa",
+    category: "flowers",
+  },
+  {
+    id: "wilted-flower",
+    name: "Dried Flower",
+    emoji: "\u{1F940}",
+    flavor: "A preserved bloom with everlasting charm",
+    meaning: "Eternal Memory",
+    color: "#a0522d",
+    bgColor: "#f5ebe0",
+    category: "flowers",
+  },
+  {
+    id: "lotus",
+    name: "Lotus",
+    emoji: "\u{1FAB7}",
+    flavor: "Rising from still waters, serene and pure",
+    meaning: "Enlightenment & Rebirth",
+    color: "#e091b5",
+    bgColor: "#fdf0f5",
+    category: "flowers",
+  },
+  {
+    id: "blossom",
+    name: "White Blossom",
+    emoji: "\u{1F4AE}",
+    flavor: "A pristine bloom symbolizing new beginnings",
+    meaning: "Sincerity & Faith",
+    color: "#5dade2",
+    bgColor: "#eaf6fd",
+    category: "flowers",
+  },
+  {
+    id: "four-leaf-clover",
+    name: "Four-Leaf Clover",
+    emoji: "\u{1F340}",
+    flavor: "The rarest find in the meadow",
+    meaning: "Good Luck",
+    color: "#27ae60",
+    bgColor: "#e8f8ef",
+    category: "flowers",
+  },
+  {
+    id: "herb",
+    name: "Lavender Sprig",
+    emoji: "\u{1F33F}",
+    flavor: "A calming herb with a soothing purple hue",
+    meaning: "Tranquility & Grace",
+    color: "#7d6b9e",
+    bgColor: "#f0ecf5",
+    category: "flowers",
+  },
+
+  // ── Hearts ──────────────────────────────────
+  {
+    id: "red-heart",
+    name: "Red Heart",
+    emoji: "\u{2764}\u{FE0F}",
+    flavor: "The timeless symbol of deep, true love",
+    meaning: "Deep Love",
+    color: "#e74c3c",
+    bgColor: "#fce4e4",
+    category: "hearts",
+  },
+  {
+    id: "pink-heart",
+    name: "Pink Heart",
+    emoji: "\u{1FA77}",
+    flavor: "A soft glow of tender care and affection",
+    meaning: "Tender Affection",
+    color: "#e8789a",
+    bgColor: "#fdeef3",
+    category: "hearts",
+  },
+  {
+    id: "orange-heart",
+    name: "Orange Heart",
+    emoji: "\u{1F9E1}",
+    flavor: "Warm like a sunset, full of caring energy",
+    meaning: "Courage & Care",
+    color: "#e67e22",
+    bgColor: "#fef0e0",
+    category: "hearts",
+  },
+  {
+    id: "yellow-heart",
+    name: "Yellow Heart",
+    emoji: "\u{1F49B}",
+    flavor: "Bright as sunshine, a beacon of happiness",
+    meaning: "Happiness & Friendship",
+    color: "#f1c40f",
+    bgColor: "#fef9e0",
+    category: "hearts",
+  },
+  {
+    id: "green-heart",
+    name: "Green Heart",
+    emoji: "\u{1F49A}",
+    flavor: "Fresh like spring, nurturing and alive",
+    meaning: "Growth & Harmony",
+    color: "#27ae60",
+    bgColor: "#e8f8ef",
+    category: "hearts",
+  },
+  {
+    id: "blue-heart",
+    name: "Blue Heart",
+    emoji: "\u{1F499}",
+    flavor: "Deep as the ocean, steady and true",
+    meaning: "Trust & Stability",
+    color: "#2980b9",
+    bgColor: "#e4f0fa",
+    category: "hearts",
+  },
+  {
+    id: "purple-heart",
+    name: "Purple Heart",
+    emoji: "\u{1F49C}",
+    flavor: "Rich with understanding and quiet compassion",
+    meaning: "Compassion & Wisdom",
+    color: "#8e44ad",
+    bgColor: "#f4e8fa",
+    category: "hearts",
+  },
+  {
+    id: "sparkling-heart",
+    name: "Sparkling Heart",
+    emoji: "\u{1F496}",
+    flavor: "A heart that glitters with enchantment",
+    meaning: "Enchantment & Excitement",
+    color: "#e84393",
+    bgColor: "#fde4f0",
+    category: "hearts",
+  },
+  {
+    id: "ribbon-heart",
+    name: "Heart with Ribbon",
+    emoji: "\u{1F49D}",
+    flavor: "A heart wrapped up as a gift just for you",
+    meaning: "Gift of Love",
+    color: "#d63384",
+    bgColor: "#fce4ef",
+    category: "hearts",
+  },
+  {
+    id: "revolving-hearts",
+    name: "Revolving Hearts",
+    emoji: "\u{1F49E}",
+    flavor: "Two hearts orbiting in endless affection",
+    meaning: "Mutual Love",
+    color: "#e75480",
+    bgColor: "#fde8ef",
+    category: "hearts",
+  },
+  {
+    id: "growing-heart",
+    name: "Growing Heart",
+    emoji: "\u{1F497}",
+    flavor: "A love that keeps expanding, ever bigger",
+    meaning: "Blossoming Love",
+    color: "#ff6b81",
+    bgColor: "#ffeaee",
+    category: "hearts",
+  },
+  {
+    id: "heart-exclamation",
+    name: "Heart Exclamation",
+    emoji: "\u{2763}\u{FE0F}",
+    flavor: "An emphatic declaration of the heart",
+    meaning: "Passion & Emphasis",
+    color: "#c0392b",
+    bgColor: "#fce4e4",
+    category: "hearts",
   },
 ];
 
 export const MIN_SWEETS = 4;
-export const MAX_SWEETS = 9;
+export const MAX_SWEETS = 12;

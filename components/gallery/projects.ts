@@ -82,7 +82,7 @@ export const folders: Folder[] = [
         id: "sweetbox",
         title: "SweetBox",
         description:
-          "A fun digital sweets box builder inspired by digibouquet. Pick from cupcakes, macarons, truffles, and more — each with a special meaning — to build and share a personalized gift box.",
+          "A fun digital gift box builder inspired by digibouquet. Pick from cupcakes, macarons, truffles, flowers, and hearts — each with a special meaning — to build a personalized gift box for someone special.",
         techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
         links: [
           { label: "Try It", url: "/sweets" },
