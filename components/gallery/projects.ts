@@ -25,13 +25,13 @@ export const folders: Folder[] = [
         id: "medease",
         title: "MedEase",
         description:
-          "An AI-powered EHR summarizer that transforms complex medical records into clear, patient-friendly summaries using Google Gemini. Includes a drug interaction checker.",
-        techStack: ["React", "Vite", "FastAPI", "Google Gemini", "TypeScript"],
+          "A multi-portal healthcare platform with AI-powered EHR summarization, drug interaction checking via RxNorm, and real-time voice consultations using Gemini Live. Serves patients, doctors, and clinic admins.",
+        techStack: ["React", "TypeScript", "FastAPI", "Google Gemini", "RxNorm", "WebSocket"],
         links: [
           { label: "Live Demo", url: "/medease" },
           { label: "GitHub", url: "https://github.com/harineek24/medEase" },
         ],
-        color: "#4a90d9",
+        color: "#45BFD3",
         folder: "Main Projects",
       },
       {
