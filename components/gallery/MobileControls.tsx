@@ -7,12 +7,14 @@ interface MobileControlsProps {
   keys: React.RefObject<KeyState>;
   onEnterPress: () => void;
   nearbyLabel: string | null;
+  hidden?: boolean;
 }
 
 export default function MobileControls({
   keys,
   onEnterPress,
   nearbyLabel,
+  hidden,
 }: MobileControlsProps) {
   const knobRef = useRef<HTMLDivElement>(null);
   const joystickContainerRef = useRef<HTMLDivElement>(null);
@@ -115,7 +117,7 @@ export default function MobileControls({
     [onEnterPress]
   );
 
-  if (!isMobile) return null;
+  if (!isMobile || hidden) return null;
 
   return (
     <>

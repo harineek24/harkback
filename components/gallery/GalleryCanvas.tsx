@@ -134,6 +134,7 @@ export default function GalleryCanvas() {
               ? nearbyFolder.name
               : null
         }
+        hidden={!!detailFolder || !!talkingGuest || menuOpen}
       />
     </div>
   );
