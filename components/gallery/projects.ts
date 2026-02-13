@@ -78,6 +78,18 @@ export const folders: Folder[] = [
         color: "#1abc9c",
         folder: "Main Projects",
       },
+      {
+        id: "sweetbox",
+        title: "SweetBox",
+        description:
+          "A fun digital gift box builder inspired by digibouquet. Pick from cupcakes, macarons, truffles, flowers, and hearts — each with a special meaning — to build a personalized gift box for someone special.",
+        techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+        links: [
+          { label: "Try It", url: "/sweets" },
+        ],
+        color: "#e8789a",
+        folder: "Main Projects",
+      },
     ],
   },
   {

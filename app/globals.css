@@ -635,3 +635,625 @@ body {
     display: none;
   }
 }
+
+/* ================================ */
+/* SweetBox Builder Styles          */
+/* ================================ */
+
+.sweets-app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fef9f0 40%, #f0f7fe 100%);
+  overflow-y: auto;
+  padding-bottom: 60px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header */
+.sweets-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  position: relative;
+}
+
+.sweets-back-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.sweets-back-link:hover {
+  color: #e8789a;
+}
+
+.sweets-logo {
+  font-size: 42px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e8789a 0%, #d4a04a 50%, #9b7fbf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+
+.sweets-tagline {
+  color: #9ca3af;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* Pick Stage */
+.sweets-stage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sweets-pick-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sweets-pick-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.sweets-pick-subtitle {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto 16px;
+}
+
+.sweets-counter {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.sweets-count {
+  font-size: 32px;
+  font-weight: 800;
+  color: #d1d5db;
+  transition: color 0.3s;
+}
+
+.sweets-count.ready {
+  color: #e8789a;
+}
+
+.sweets-count-label {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Category Tabs */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-tab:hover {
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #e8789a, #d4a04a);
+  border-color: transparent;
+  color: white;
+}
+
+.category-tab-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Sweets Grid */
+.sweets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.sweet-card {
+  background: var(--sweet-bg);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 20px 12px 16px;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.sweet-card:hover {
+  border-color: var(--sweet-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.sweet-card.selected {
+  border-color: var(--sweet-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sweet-color) 25%, transparent);
+}
+
+.sweet-card.maxed {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sweet-card-emoji {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.sweet-card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  line-height: 1.2;
+}
+
+.sweet-card-meaning {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.sweet-card-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sweet-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Finish Button */
+.sweets-pick-footer {
+  text-align: center;
+  padding: 10px 0 40px;
+}
+
+.sweets-finish-btn {
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #e5e7eb;
+  color: #9ca3af;
+}
+
+.sweets-finish-btn.active {
+  background: linear-gradient(135deg, #e8789a, #d4a04a);
+  color: white;
+  box-shadow: 0 4px 20px rgba(232, 120, 154, 0.3);
+}
+
+.sweets-finish-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Box Stage */
+.sweets-box-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sweets-box-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.sweets-box-subtitle {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* Gift Box */
+.gift-box-wrapper {
+  max-width: 400px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.gift-box-lid {
+  position: relative;
+  height: 28px;
+  background: linear-gradient(180deg, #e8789a 0%, #d4688a 100%);
+  border-radius: 12px 12px 0 0;
+  margin: 0 -4px;
+  z-index: 2;
+}
+
+.gift-box-ribbon-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #d4a04a 0%, #c49040 100%);
+}
+
+.gift-box-ribbon-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #d4a04a 0%, #c49040 100%);
+}
+
+.gift-box-bow {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.bow-loop {
+  position: absolute;
+  width: 24px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d4a04a;
+  top: 4px;
+}
+
+.bow-left {
+  right: 6px;
+  transform: rotate(-25deg);
+}
+
+.bow-right {
+  left: 6px;
+  transform: rotate(25deg);
+}
+
+.bow-knot {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #c49040;
+}
+
+.gift-box {
+  background: linear-gradient(180deg, #fce4ec 0%, #f8d4dc 100%);
+  border: 2px solid #e8789a;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 16px;
+  position: relative;
+}
+
+.gift-box-grid {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+}
+
+.box-sweet-cell {
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
+  background: var(--sweet-bg);
+  border: 1.5px solid color-mix(in srgb, var(--sweet-color) 30%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.box-sweet-cell:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.box-sweet-emoji {
+  font-size: 34px;
+  line-height: 1;
+}
+
+/* Meanings */
+.sweets-meanings {
+  max-width: 480px;
+  margin: 0 auto 30px;
+}
+
+.meanings-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #374151;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.meanings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meaning-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.meaning-emoji {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.meaning-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.meaning-dash {
+  color: #d1d5db;
+  flex-shrink: 0;
+}
+
+.meaning-text {
+  font-size: 13px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Export area (for html2canvas screenshot) */
+.sweets-export-area {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fef9f0 40%, #f0f7fe 100%);
+  padding: 20px 16px 10px;
+  border-radius: 16px;
+}
+
+.sweets-export-watermark {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #d1d5db;
+  text-transform: lowercase;
+  margin-top: 8px;
+}
+
+/* Action buttons (Copy Link / Download) */
+.sweets-box-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 16px;
+  flex-wrap: wrap;
+}
+
+.sweets-action-btn {
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sweets-action-btn.share {
+  background: linear-gradient(135deg, #e8789a, #d4a04a);
+  color: white;
+  box-shadow: 0 4px 16px rgba(232, 120, 154, 0.25);
+}
+
+.sweets-action-btn.share:hover {
+  box-shadow: 0 6px 24px rgba(232, 120, 154, 0.35);
+  transform: translateY(-1px);
+}
+
+.sweets-action-btn.download {
+  background: white;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+}
+
+.sweets-action-btn.download:hover {
+  border-color: #9b7fbf;
+  color: #9b7fbf;
+}
+
+/* Start Over */
+.sweets-box-footer {
+  text-align: center;
+  padding: 10px 0 40px;
+}
+
+.sweets-startover-btn {
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: 2px solid #e5e7eb;
+  background: white;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sweets-startover-btn:hover {
+  border-color: #e8789a;
+  color: #e8789a;
+}
+
+/* Inspect Modal */
+.sweet-inspect-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.sweet-inspect-card {
+  background: white;
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.inspect-emoji {
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.inspect-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.inspect-flavor {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.inspect-meaning-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--sweet-bg);
+  border: 1.5px solid var(--sweet-color);
+  border-radius: 20px;
+  color: var(--sweet-color);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.inspect-close {
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.inspect-close:hover {
+  border-color: #e8789a;
+  color: #e8789a;
+}
+
+/* Mobile responsive for sweets */
+@media (max-width: 600px) {
+  .sweets-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .sweets-logo {
+    font-size: 32px;
+  }
+
+  .sweet-card {
+    padding: 16px 8px 12px;
+  }
+
+  .sweet-card-emoji {
+    font-size: 28px;
+  }
+
+  .box-sweet-cell {
+    width: 65px;
+    height: 65px;
+  }
+
+  .box-sweet-emoji {
+    font-size: 26px;
+  }
+
+  .gift-box-wrapper {
+    max-width: 280px;
+  }
+
+  .sweets-back-link {
+    position: static;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
