@@ -269,17 +269,28 @@ export default function GalleryUI({
               </div>
               {detailProject.links.length > 0 && (
                 <div className="detail-links">
-                  {detailProject.links.map((link) => (
-                    <a
-                      key={link.url}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="detail-link"
-                    >
-                      {link.label} &rarr;
-                    </a>
-                  ))}
+                  {detailProject.links.map((link) => {
+                    const isInternal = link.url.startsWith("/");
+                    return isInternal ? (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        className="detail-link"
+                      >
+                        {link.label} &rarr;
+                      </a>
+                    ) : (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="detail-link"
+                      >
+                        {link.label} &rarr;
+                      </a>
+                    );
+                  })}
                 </div>
               )}
               <p className="detail-hint">Press ESC to close</p>

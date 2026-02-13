@@ -28,7 +28,7 @@ export const folders: Folder[] = [
           "An AI-powered EHR summarizer that transforms complex medical records into clear, patient-friendly summaries using Google Gemini. Includes a drug interaction checker.",
         techStack: ["React", "Vite", "FastAPI", "Google Gemini", "TypeScript"],
         links: [
-          { label: "Live Demo", url: "https://med-ease-harineek24.vercel.app" },
+          { label: "Live Demo", url: "/medease" },
           { label: "GitHub", url: "https://github.com/harineek24/medEase" },
         ],
         color: "#4a90d9",
