@@ -1062,6 +1062,64 @@ body {
   font-style: italic;
 }
 
+/* Export area (for html2canvas screenshot) */
+.sweets-export-area {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fef9f0 40%, #f0f7fe 100%);
+  padding: 20px 16px 10px;
+  border-radius: 16px;
+}
+
+.sweets-export-watermark {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #d1d5db;
+  text-transform: lowercase;
+  margin-top: 8px;
+}
+
+/* Action buttons (Copy Link / Download) */
+.sweets-box-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 16px;
+  flex-wrap: wrap;
+}
+
+.sweets-action-btn {
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sweets-action-btn.share {
+  background: linear-gradient(135deg, #e8789a, #d4a04a);
+  color: white;
+  box-shadow: 0 4px 16px rgba(232, 120, 154, 0.25);
+}
+
+.sweets-action-btn.share:hover {
+  box-shadow: 0 6px 24px rgba(232, 120, 154, 0.35);
+  transform: translateY(-1px);
+}
+
+.sweets-action-btn.download {
+  background: white;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+}
+
+.sweets-action-btn.download:hover {
+  border-color: #9b7fbf;
+  color: #9b7fbf;
+}
+
 /* Start Over */
 .sweets-box-footer {
   text-align: center;

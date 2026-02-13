@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import html2canvas from "html2canvas";
 import {
   sweets,
   Sweet,
@@ -14,11 +15,54 @@ import {
 type Stage = "pick" | "box";
 type Filter = "all" | Category;
 
+function encodeSelection(items: Sweet[]): string {
+  return items.map((s) => s.id).join(",");
+}
+
+function decodeSelection(param: string): Sweet[] {
+  const ids = param.split(",").filter(Boolean);
+  const found: Sweet[] = [];
+  for (const id of ids) {
+    const sweet = sweets.find((s) => s.id === id);
+    if (sweet) found.push(sweet);
+  }
+  return found;
+}
+
 export default function SweetsBuilder() {
   const [stage, setStage] = useState<Stage>("pick");
   const [selected, setSelected] = useState<Sweet[]>([]);
   const [inspecting, setInspecting] = useState<Sweet | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
+  const [copied, setCopied] = useState(false);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  // Load from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const boxParam = params.get("box");
+    if (boxParam) {
+      const items = decodeSelection(boxParam);
+      if (items.length >= MIN_SWEETS) {
+        setSelected(items);
+        setStage("box");
+      }
+    }
+  }, []);
+
+  // Update URL when box is shown
+  useEffect(() => {
+    if (stage === "box" && selected.length >= MIN_SWEETS) {
+      const encoded = encodeSelection(selected);
+      const url = new URL(window.location.href);
+      url.searchParams.set("box", encoded);
+      window.history.replaceState({}, "", url.toString());
+    } else if (stage === "pick") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("box");
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, [stage, selected]);
 
   const filteredItems = useMemo(
     () =>
@@ -44,6 +88,44 @@ export default function SweetsBuilder() {
     setStage("pick");
     setInspecting(null);
     setFilter("all");
+  };
+
+  const copyLink = async () => {
+    const encoded = encodeSelection(selected);
+    const url = new URL(window.location.href);
+    url.searchParams.set("box", encoded);
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback: select a temporary input
+      const input = document.createElement("input");
+      input.value = url.toString();
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const downloadImage = async () => {
+    if (!boxRef.current) return;
+    try {
+      const canvas = await html2canvas(boxRef.current, {
+        backgroundColor: "#fdf2f8",
+        scale: 2,
+        useCORS: true,
+      });
+      const link = document.createElement("a");
+      link.download = "my-sweetbox.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (err) {
+      console.error("Failed to export image:", err);
+    }
   };
 
   // Grid columns for the box based on item count
@@ -186,81 +268,100 @@ export default function SweetsBuilder() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="sweets-box-header">
-              <h2 className="sweets-box-title">Your Gift Box</h2>
-              <p className="sweets-box-subtitle">
-                A curated collection of {selected.length} gifts, packed
-                with meaning
-              </p>
-            </div>
+            {/* Downloadable area */}
+            <div ref={boxRef} className="sweets-export-area">
+              <div className="sweets-box-header">
+                <h2 className="sweets-box-title">Your Gift Box</h2>
+                <p className="sweets-box-subtitle">
+                  A curated collection of {selected.length} gifts, packed
+                  with meaning
+                </p>
+              </div>
 
-            {/* The Gift Box */}
-            <div className="gift-box-wrapper">
-              <div className="gift-box-lid">
-                <div className="gift-box-ribbon-h" />
-                <div className="gift-box-ribbon-v" />
-                <div className="gift-box-bow">
-                  <div className="bow-loop bow-left" />
-                  <div className="bow-loop bow-right" />
-                  <div className="bow-knot" />
+              {/* The Gift Box */}
+              <div className="gift-box-wrapper">
+                <div className="gift-box-lid">
+                  <div className="gift-box-ribbon-h" />
+                  <div className="gift-box-ribbon-v" />
+                  <div className="gift-box-bow">
+                    <div className="bow-loop bow-left" />
+                    <div className="bow-loop bow-right" />
+                    <div className="bow-knot" />
+                  </div>
+                </div>
+                <div className="gift-box">
+                  <div
+                    className="gift-box-grid"
+                    style={{
+                      gridTemplateColumns: `repeat(${getBoxCols(selected.length)}, 1fr)`,
+                    }}
+                  >
+                    {selected.map((sweet, i) => (
+                      <motion.button
+                        key={sweet.id}
+                        className="box-sweet-cell"
+                        style={
+                          {
+                            "--sweet-bg": sweet.bgColor,
+                            "--sweet-color": sweet.color,
+                          } as React.CSSProperties
+                        }
+                        initial={{ scale: 0, rotate: -20 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{
+                          delay: i * 0.07,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                        whileHover={{ scale: 1.1, zIndex: 10 }}
+                        onClick={() => setInspecting(sweet)}
+                      >
+                        <span className="box-sweet-emoji">
+                          {sweet.emoji}
+                        </span>
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="gift-box">
-                <div
-                  className="gift-box-grid"
-                  style={{
-                    gridTemplateColumns: `repeat(${getBoxCols(selected.length)}, 1fr)`,
-                  }}
-                >
+
+              {/* Meanings List */}
+              <div className="sweets-meanings">
+                <h3 className="meanings-title">What your box says</h3>
+                <div className="meanings-list">
                   {selected.map((sweet, i) => (
-                    <motion.button
+                    <motion.div
                       key={sweet.id}
-                      className="box-sweet-cell"
-                      style={
-                        {
-                          "--sweet-bg": sweet.bgColor,
-                          "--sweet-color": sweet.color,
-                        } as React.CSSProperties
-                      }
-                      initial={{ scale: 0, rotate: -20 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{
-                        delay: i * 0.07,
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 20,
-                      }}
-                      whileHover={{ scale: 1.1, zIndex: 10 }}
-                      onClick={() => setInspecting(sweet)}
+                      className="meaning-item"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + i * 0.05 }}
                     >
-                      <span className="box-sweet-emoji">
-                        {sweet.emoji}
+                      <span className="meaning-emoji">{sweet.emoji}</span>
+                      <span className="meaning-name">{sweet.name}</span>
+                      <span className="meaning-dash">&mdash;</span>
+                      <span className="meaning-text">
+                        {sweet.meaning}
                       </span>
-                    </motion.button>
+                    </motion.div>
                   ))}
                 </div>
               </div>
+
+              <p className="sweets-export-watermark">
+                sweetbox
+              </p>
             </div>
 
-            {/* Meanings List */}
-            <div className="sweets-meanings">
-              <h3 className="meanings-title">What your box says</h3>
-              <div className="meanings-list">
-                {selected.map((sweet, i) => (
-                  <motion.div
-                    key={sweet.id}
-                    className="meaning-item"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + i * 0.05 }}
-                  >
-                    <span className="meaning-emoji">{sweet.emoji}</span>
-                    <span className="meaning-name">{sweet.name}</span>
-                    <span className="meaning-dash">&mdash;</span>
-                    <span className="meaning-text">{sweet.meaning}</span>
-                  </motion.div>
-                ))}
-              </div>
+            {/* Action buttons */}
+            <div className="sweets-box-actions">
+              <button className="sweets-action-btn share" onClick={copyLink}>
+                {copied ? "Link Copied!" : "Copy Link"}
+              </button>
+              <button className="sweets-action-btn download" onClick={downloadImage}>
+                Download Image
+              </button>
             </div>
 
             <div className="sweets-box-footer">
